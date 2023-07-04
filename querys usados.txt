@@ -1,0 +1,12 @@
+ALTER TABLE ingresos
+ADD CONSTRAINT nombre_restriccion FOREIGN KEY (noCuenta)
+REFERENCES usuarios (noCuenta)
+ON DELETE CASCADE;
+
+DELETE FROM ingresos WHERE noCuenta IN (SELECT noCuenta FROM usuarios);
+DELETE FROM usuarios;
+TRUNCATE TABLE  `ingresos`;
+ALTER TABLE usuarios AUTO_INCREMENT = 1;
+ALTER TABLE usuarios ADD CONSTRAINT unique_tarjeta UNIQUE (idTarjeta);
+
+

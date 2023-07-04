@@ -1,0 +1,191 @@
+<html lang="es">
+<head>
+    
+    <meta charset="UTF-8">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-right: 10px;
+        }
+
+        footer {
+            background-color: #f0f0f0;
+            padding: 1em;
+            font-size: 0.8em;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .container {
+            margin: 50px auto;
+            width: 500px;
+            padding: 20px;
+            border: 2px solid #000000;
+            background-color: #ffffff;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px 10px;
+            margin-bottom: 10px;
+            border: 2px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        label {
+            font-size: 18px;
+            font-weight: bold;
+            font-family: cursive;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="submit"],
+        input[type="button"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 0.5em 1em;
+            cursor: pointer;
+            font-size: 1em;
+            margin-bottom: 0.5em;
+        }
+
+        input[type="button"] {
+            padding: 8px 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <button onclick="goBack()">Retroceder</button>
+        <h1>Acceso - Alumno</h1>
+        <div>
+            <button onclick="showHelp()">Ayuda</button>
+            <span id="horaActual"></span> <!-- Mostrará la hora actual -->
+        </div>
+	
+    </header>
+
+    <div class="container">
+        <form method="post" action="loginAlumno.php" onsubmit="return validateForm()">
+            <label for="txtUsuario">Número de Cuenta:</label><br>
+            <input type="text" name="txtUsuario" id="txtUsuario" placeholder="Ingrese su número de cuenta"><br>
+
+            <label for="txtpassword">ID de Tarjeta:</label><br>
+            <input type="password" name="txtpassword" id="txtpassword" placeholder="Ingrese su ID de tarjeta"><br>
+
+            <input type="submit" value="Ingresar">
+            <input type="button" name="registrar" value="Registrar" onclick="location='registroUsuarioAlumno.php'">
+	    <input type="button" name="recuperarPasswd" value="Recuperar contraseña" onclick="showHelpPasswd()">
+        </form>
+    </div>
+
+    <footer>
+        Autor: WebDesigners | Teléfono: 7223486261 | Email: imartineza005@alumno.uaemex.mx | Versión: 2.0
+    </footer>
+
+    <script>
+	function mostrarHoraActual() {
+            var fechaActual = new Date();
+            var hora = fechaActual.getHours();
+            var minutos = fechaActual.getMinutes();
+            var segundos = fechaActual.getSeconds();
+
+            // Formatear los minutos y segundos para que tengan siempre dos dígitos
+            if (minutos < 10) {
+                minutos = "0" + minutos;
+            }
+            if (segundos < 10) {
+                segundos = "0" + segundos;
+            }
+
+            // Crear una cadena con la hora actual en formato HH:MM:SS
+            var horaActual = hora + ":" + minutos + ":" + segundos;
+
+            // Mostrar la hora actual en el elemento con el ID "horaActual"
+            document.getElementById("horaActual").textContent = horaActual;
+        }
+
+        // Llamar a la función mostrarHoraActual cada segundo para actualizar la hora
+        setInterval(mostrarHoraActual, 1000);
+        function goBack() {
+            window.history.back();
+        }
+
+        function showHelp() {
+            alert('Si estás registrado, puedes hacer click en ingresar, en caso contrario, puedes dar click en registrar para ingresar tus credenciales.');
+        }
+	
+	function validateForm() {
+        var usuario = document.getElementById('txtUsuario').value;
+        var password = document.getElementById('txtpassword').value;
+
+        if (usuario === '' || password === '') {
+            alert('Por favor, completa todos los campos.');
+            document.getElementById('errorSound').play(); // Reproducir sonido de error
+            return false;
+        } else {
+            document.getElementById('successSound').play(); // Reproducir sonido de éxito
+            return true;
+        }
+    }
+	function showHelp() {
+            alert('Si estás registrado, puedes hacer click en ingresar, en caso contrario, puedes dar click en registrar para ingresar tus credenciales.');
+        }
+	var successSound = new Audio('success_sound.mp3');
+        var errorSound = new Audio('error.mp3');
+
+        function validateForm() {
+            var usuario = document.getElementById('txtUsuario').value;
+            var password = document.getElementById('txtpassword').value;
+
+            if (usuario === '' || password === '') {
+                playErrorSound();
+		alert('Por favor, completa todos los campos.');
+                 // Reproducir sonido de error
+                return false;
+            } else {
+                playSuccessSound(); // Reproducir sonido de éxito
+                return true;
+            }
+        }
+
+        function playSuccessSound() {
+            successSound.play();
+        }
+
+        function playErrorSound() {
+            errorSound.play();
+        }
+	function showHelpPasswd() {
+            alert('Para recuperar tu contraseña ponte en contacto con el administrador, Javier Salas García - 722 759 5572, él te la podrá proporcionar.');
+        }
+    </script>
+</body>
+
+</html>

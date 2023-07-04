@@ -1,0 +1,4 @@
+TARJ0001
+INSERT INTO ingresos (noCuenta, idTarjeta, FechaIngreso, HoraIngreso) VALUES (1414838, 'TARJ0001', NOW(), CURRENT_TIME());
+
+SELECT CURRENT_TIME() AS HoraActual;
